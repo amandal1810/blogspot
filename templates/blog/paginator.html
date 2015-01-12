@@ -1,0 +1,19 @@
+
+        {% if posts.object_list and posts.paginator.num_pages > 1 %}
+        <ul class="pager">
+            <li class="previous">
+                {% if posts.has_previous %}
+                    <a href="?page={{ posts.previous_page_number }}"> &lt;&lt; Newer Posts </a>
+                {% endif %}
+            </li>
+            <li class="disabled">
+                &nbsp;Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+            </li>
+            <li class="next">
+                {% if posts.has_next %}
+                    <a href="?page={{ posts.next_page_number }}"> Older Posts &gt;&gt; </a>
+                {% endif %}
+            </li>
+        </ul>
+        
+        {% endif %}

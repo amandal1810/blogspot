@@ -1,24 +1,36 @@
 {% extends 'blog/base.html' %}
+{% load staticfiles %}
 
-<!-- LIST OF POSTS -->
+<!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    {% block header-image %}{% static "img/home-bg.jpg" %}{% endblock %}
+    {% block header-heading %}Abhisek's Blogspot &#9786;&#128526;&#128515;{% endblock %}
+    {% block header-subheading %}My first attempt at Django and Bootstrap{% endblock %}
 
-{% block content %}
-    <div class="main">
-            {% for post in posts %}
-                <ul>
-		            <div class="title">
-		            	<a href="{% url 'post' post.id %}">{{ post.title }}<a/>
-		            </div>
-                
-                	<div class="author">Author: {{ post.author }}</div>
-                    <div class="time">Posted on: {{ post.created }}</div>
-                    <div class="timesince">Posted {{ post.created|timesince }} ago</div>
-                    <div class="body">{{ post.body|truncatewords:20 }}</div>
-                </ul>
-                <br/>
-            {% endfor %}
+<!-- Main Content -->
+    {% block content %}
+    <div class="container">
+        <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    
+        {% for post in posts %}
+        <div class="post-preview">
+            <a href="{% url 'post' post.id %}">
+                <h2 class="post-title">
+                    {{ post.title }}
+                </h2>
+            </a>
+                <h4>
+                    {{ post.body|truncatechars:150|safe}}
+                </h4>
+            <p class="post-meta">Posted by <a>{{ post.author }}</a> on {{ post.created }}</p>
+        </div>
+        <hr>
+        {% endfor %}
 
-        {% include 'paginator.html' %}
+        {% include 'blog/paginator.html' %}
+        
     </div>
-{% endblock %}
-
+    </div>
+    </div>
+    {% endblock %}

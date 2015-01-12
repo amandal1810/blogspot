@@ -3,6 +3,8 @@ from blog.models import *
 from django.core.paginator import *
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
+from django import forms
+from blog.forms import *
 # Create your views here.
 
 def all_blogs(request):
@@ -21,20 +23,17 @@ def all_blogs(request):
 def post(request,pk):
 	post = Post.objects.get(pk=pk)
 	comments = Comment.objects.filter(post=post)
-	ct = { 'post':post, 'comments':comments }
+	form = CommentForm()
+	ct = { 'post':post, 'comments':comments, 'form':form }
 	#ct.update(csrf(request))
 	return render(request,'blog/post.html',ct)
 
 def add_comment(request,pk):
-	new = request.POST
-
-	if new.has_key("author"):
-		author = new["author"]
-	else:
-		author = "Anonymous"
-
-	if new.has_key("body"):
-		comment = Comment(author=author,body=new["body"],post=Post.objects.get(pk=pk))
-		comment.save()
-
+	form = CommentForm(request.POST)
+	print pk
+	if form.is_valid():
+		author = form.cleaned_data['author']
+		body = form.cleaned_data['body']
+	comment = Comment(author=author,body=body,post=Post.objects.get(pk=pk))
+	comment.save()
 	return HttpResponseRedirect(reverse("post", args=[pk]))
