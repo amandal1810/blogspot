@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+
+<!-- overriding the title of the main blog with the post's title -->
+{% block title %}{{ post.title }}{% endblock %}
+
+<!-- EXACTLY ONE POST AND ITS COMMENTS -->
+
+{% block content %}
+    <div class="main">
+            
+        <div class="title"><h1>{{ post.title }}</h1></div>
+        <ul>
+        	<div class="author">Author: {{ post.author }}</div>
+            <div class="time">Posted on {{ post.created }}</div>
+            <div class="timesince">Posted {{ post.created|timesince }} ago</div>
+            <div class="body">{{ post.body }}</div>
+        </ul>
+        <br/>
+		COMMENTS
+		<br/>
+		{% for comment in comments %}
+		<ul>
+			<div class="comment-author">Commented by {{ comment.author }}</div>
+			<div class="comment-time">Commented on {{ comment.created }} </div>
+			<div class="comment-timesince">{{ comment.created|timesince }} ago</div>
+			<div class="comment-body">{{ comment.body }}</div>
+		</ul>
+		{% endfor %}
+    </div>
+{% endblock %}
+

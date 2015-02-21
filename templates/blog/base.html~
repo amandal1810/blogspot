@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   <title>{% block title %}MyBlog{% endblock %}</title> 
+
+ </head>
+
+<body>
+    <div id="sidebar"> {% block sidebar %} {% endblock %} </div>
+    <div id="container">
+        <div id="menu">
+            {% block nav-global %}
+
+                <!-- MENU -->
+                <h3>Abhisek's Blogspot &#9786;&#128526; </h3>
+                {% if user.is_staff %}
+                <a href="{% url 'admin:index' %}">Admin</a>
+                <a href="{% url 'admin:blog_post_add' %}">Add post</a>
+                <a href="{% url 'admin:blog_comment_add' %}">Add comment</a>
+                {% endif %}
+
+            {% endblock %}
+        </div>
+
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+<!-- LIST OF POSTS -->
+
+{% block content %}
+    <div class="main">
+            {% for post in posts %}
+                <div class="title">{{ post.title }}</div>
+                <ul>
+                	<div class="author">Author: {{ post.author }}</div>
+                    <div class="time">Posted on: {{ post.created }}</div>
+                    <div class="timesince">Posted {{ post.created|timesince }} ago</div>
+                    <div class="body">{{ post.body|truncatewords:20 }}</div>
+                </ul>
+                <br/>
+            {% endfor %}
+
+        {% include 'paginator.html' %}
+    </div>
+{% endblock %}
+

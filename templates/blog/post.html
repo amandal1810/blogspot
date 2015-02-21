@@ -1,0 +1,48 @@
+{% extends 'blog/base.html' %}
+
+<!-- overriding the title of the main blog with the post's title -->
+{% block title %}{{ post.title }}{% endblock %}
+
+<!-- EXACTLY ONE POST AND ITS COMMENTS -->
+
+{% block content %}
+    <div class="main">
+            
+        <div class="title"><h2>{{ post.title }}</h2></div>
+        <ul>
+        	<div class="author">Author: {{ post.author }}</div>
+            <div class="time">Posted on {{ post.created }}</div>
+            <div class="timesince">Posted {{ post.created|timesince }} ago</div>
+            <div class="body">{{ post.body }}</div>
+        </ul>
+    </div>
+        <br/>
+    <div class="comments">
+		COMMENTS
+		<br/>
+		{% for comment in comments %}
+		<ul>
+			<div class="comment-author">Commented by {{ comment.author }}</div>
+			<div class="comment-time">Commented on {{ comment.created }} </div>
+			<div class="comment-body">{{ comment.body }}</div>
+			<div class="comment-timesince">{{ comment.created|timesince }} ago</div>
+		</ul>
+		{% endfor %}
+    </div>
+    <br/>
+    <div class="comment-add">
+    	<form action="{% url 'add_comment' post.id %}" method="post">
+    	
+    	Add Comment
+		{% csrf_token %}
+		<br/>
+		<input type="text" name="author" size="40" placeholder="enter your name here">
+		<br/>
+		<textarea name="body" rows="8" cols="40" placeholder="enter your comment here" required></textarea>
+			<div id="submit">
+				<input type="submit" value="Submit">
+			</div>
+		</form>
+    </div>
+{% endblock %}
+
