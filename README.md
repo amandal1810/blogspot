@@ -3,8 +3,15 @@ blog application
 A python web app based on the django web framework.
 db : sqlite3
 
-## Getting Started
+## Live deployment
 not yet hosted live
+
+## Localhost installation steps
+* install python>=2.7
+* install django>=1.6.5
+* install django-bootstrap3>=5.0 
+* to install django-bootstrap3
+* to install,... pip install django-bootstrap3
 
 ## Bugs and Issues
 * author="Anonymous" is not being set anonymous commenters
